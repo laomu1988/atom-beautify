@@ -29,7 +29,7 @@ module.exports = class JSBeautify extends Beautifier
     @info("JS Beautify Options: #{JSON.stringify(options, null, 4)}")
     #TODO reconsider handling of EOL once js-beautify adds EOL detection
     #see https://github.com/beautify-web/js-beautify/issues/899
-    options.eol = getDefaultLineEnding() ? options.eol #fixes issue #707
+    options.eol = if text.indexOf('\r\n') >= 0 then '\r\n'else '\r' #getDefaultLineEnding() ? options.eol #fixes issue #707
     return new @Promise((resolve, reject) =>
       try
         switch language
